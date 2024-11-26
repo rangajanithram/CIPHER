@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/postprocessing/EffectComposer.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/postprocessing/RenderPass.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/postprocessing/ShaderPass.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/js/BadTVShader.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/shaders/FilmShader.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/shaders/CopyShader.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/postprocessing/MaskPass.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/js/StaticShader.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/shaders/RGBShiftShader.js"></script>
+    <script defer src="main.js"></script>
+    <!-- <script defer src=""></script>
+    <script defer src=""></script>
+    <script defer src=""></script> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        </style>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"></div>
+    
+    <div class="maincontainer">
+        <form action="#">
+            <h2>CIPHER HUB</h2>
+            <div class="input-field">
+                <input type="text" name="mail" id="inputText" required>
+                <label for="inputText">Enter your text here</label>
+            </div>
+            <div class="input-field">
+                <input type="number" name="XShft" id="shift" required>
+                <label for="shift">Enter Shift Value</label>
+            </div>
+
+            <div class="password-options">
+                <button type="button" id="encryptBtn">ENCRYPT</button>
+                <button type="button" id="decryptBtn">DECRYPT</button>
+            </div>
+        <div class="OutPut">
+            <input  type="text" id="outputText" readonly placeholder="Output will be shown here">
+        </div>
+
+        <div class="Copy">
+        <button class="copybutton">Copy Output</button>
+        </div>
+        
+        </form>
+    </div>
+</body>
+</html>
