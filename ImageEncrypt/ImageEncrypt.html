@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/postprocessing/EffectComposer.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/postprocessing/RenderPass.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/postprocessing/ShaderPass.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/js/BadTVShader.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/shaders/FilmShader.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/shaders/CopyShader.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/postprocessing/MaskPass.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/js/StaticShader.js"></script>
+    <script defer src="https://www.airtightinteractive.com/demos/js/badtvshader/lib/shaders/RGBShiftShader.js"></script>
+    
+    <script defer src="/GITHUB/CIPHER/JS/main.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+        
+    </style>
+    <link rel="stylesheet" href="/GITHUB/CIPHER/ImageEncrypt/Image.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"></div>
+    
+    <div class="maincontainer">
+        <h2>CIPHER HUB</h2>
+        <div class="input-field">
+            <input type="file" id="imageUpload" accept="image/*" class="input-file">
+            <label for="imageUpload" id="fileLabel">Choose Image</label>
+        </div>
+        <div class="input-field">
+            
+            <input type="number" name="XShft" id="shift" required placeholder="Enter the shift value" class="input-field">
+           
+        </div>
+        <div class="button-container">
+            <button id="encryptButton" class="button">Encrypt</button>
+            <button id="decryptButton" class="button">Decrypt</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('imageUpload').addEventListener('change', function() {
+            const fileLabel = document.getElementById('fileLabel');
+            if (this.files.length > 0) {
+                fileLabel.textContent = this.files[0].name;
+            } else {
+                fileLabel.textContent = 'Choose Image';
+            }
+        });
+
+        document.getElementById('encryptButton').addEventListener('click', () => {
+            const fileInput = document.getElementById('imageUpload');
+            const shiftValue = parseInt(document.getElementById('shift').value);
+            if (fileInput.files.length === 0) {
+                alert('Please select an image to encrypt.');
+                return;
+            }
+            if (isNaN(shiftValue) || shiftValue < 1 || shiftValue > 255) {
+                alert('Please enter a valid shift value between 1 and 255.');
+                return;
+            }
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const imgBytes = new Uint8Array(event.target.result);
+                for (let i = 0; i < imgBytes.length; i++) {
+                    imgBytes[i] ^= shiftValue;
+                }
+                const blob = new Blob([imgBytes], { type: 'image/jpeg' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'encrypted_image.jpg';
+                a.click();
+                URL.revokeObjectURL(url);
+                alert('Image encrypted successfully.');
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        document.getElementById('decryptButton').addEventListener('click', () => {
+            const fileInput = document.getElementById('imageUpload');
+            const shiftValue = parseInt(document.getElementById('shift').value);
+            if (fileInput.files.length === 0) {
+                alert('Please select an image to decrypt.');
+                return;
+            }
+            if (isNaN(shiftValue) || shiftValue < 1 || shiftValue > 255) {
+                alert('Please enter a valid shift value between 1 and 255.');
+                return;
+            }
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const imgBytes = new Uint8Array(event.target.result);
+                for (let i = 0; i < imgBytes.length; i++) {
+                    imgBytes[i] ^= shiftValue;
+                }
+                const blob = new Blob([imgBytes], { type: 'image/jpeg' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'decrypted_image.jpg';
+                a.click();
+                URL.revokeObjectURL(url);
+                alert('Image decrypted successfully.');
+            };
+            reader.readAsArrayBuffer(file);
+        });
+    </script>
+</body>
+</html>
